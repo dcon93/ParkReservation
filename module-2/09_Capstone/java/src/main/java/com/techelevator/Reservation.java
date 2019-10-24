@@ -10,18 +10,7 @@ public class Reservation {
 	private Date toDate;
 	private Date createDate;
 	
-	public Reservation() {}
-	
-	public Reservation(Long reservationId, Long siteId, String name, Date fromDate, Date toDate, Date createDate) {
-		this.reservationId = reservationId;
-		this.siteId = siteId;
-		this.name = name;
-		this.fromDate = fromDate;
-		this.toDate = toDate;
-		this.createDate = createDate;
-	}
-	
-	
+
 	public Long getReservationId() {
 		return reservationId;
 	}
