@@ -6,8 +6,7 @@ import com.techelevator.Campground;
 
 public interface CampgroundDAO {
 	
-	public Campground getCampgroundById(Long campgroundId);
-	public ArrayList<Campground> getAllCampgrounds(); // return all campgrounds in alphabetical order
-	public ArrayList<Campground> getCampgroundsByParkId(Long parkId); // in alphabetical order
+	public ArrayList<Campground> getCampgroundByCampgroundId(Long campgroundId);
+	public ArrayList<Campground> getCampgroundsByParkId(Long parkId); // return all campgrounds in alphabetical order
 	
 }

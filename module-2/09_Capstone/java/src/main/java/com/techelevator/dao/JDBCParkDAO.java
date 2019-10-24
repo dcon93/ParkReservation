@@ -24,7 +24,7 @@ public class JDBCParkDAO implements ParkDAO{
 		@Override
 		public Park getParkById(Long parkId) {
 			Park thePark = null;
-			String sqlFindCityById = "SELECT id, name, area, location, visitors, description, establish_date " + "FROM park " + "WHERE id = ?";
+			String sqlFindCityById = "SELECT park_id, name, area, location, visitors, description, establish_date " + "FROM park " + "WHERE id = ?";
 			SqlRowSet results = this.jdbcTemplate.queryForRowSet(sqlFindCityById, parkId);
 
 			if (results.next()) {
@@ -36,7 +36,7 @@ public class JDBCParkDAO implements ParkDAO{
 		@Override
 		public ArrayList<Park> getAllParks() {
 				ArrayList<Park> parkInfo = new ArrayList<>();
-				String parks = "SELECT * FROM park ";
+				String parks = "SELECT park_id, name, area, location, visitors, description, establish_date " + "FROM park " + "ORDER by name ASC";
 				SqlRowSet parkNextRow = jdbcTemplate.queryForRowSet(parks);
 				while(parkNextRow.next()) {
 					parkInfo.add(mapRowToPark(parkNextRow));
@@ -47,7 +47,7 @@ public class JDBCParkDAO implements ParkDAO{
 		
 		
 		private Park mapRowToPark(SqlRowSet parkNextRow) {
-			Park thePark;
+			 Park thePark;
 			 thePark = new Park();
 			
 			

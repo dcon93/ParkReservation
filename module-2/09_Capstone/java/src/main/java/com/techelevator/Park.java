@@ -14,8 +14,6 @@ public class Park {
 	Date dateEstablished;
 	
 	
-	public Park() {
-	}
 	
 	
 	
