@@ -25,7 +25,7 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 		ArrayList<Campground> campInfo = new ArrayList<>();
 		String camp=("SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " 
 		+ "FROM campground " 
-		+ "WHERE campground_id=?" 
+		+ "WHERE campground_id=? " 
 		+ "ORDER BY name");
 		SqlRowSet campNextRow = jdbcTemplate.queryForRowSet(camp,campgroundId);
 		while(campNextRow.next()) {		
