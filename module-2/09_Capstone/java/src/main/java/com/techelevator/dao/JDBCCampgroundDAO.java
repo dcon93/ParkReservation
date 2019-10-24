@@ -23,7 +23,10 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 	@Override
 	public ArrayList<Campground> getCampgroundByCampgroundId(Long campgroundId) {
 		ArrayList<Campground> campInfo = new ArrayList<>();
-		String camp=("SELECT * FROM campground WHERE campground_id=?");
+		String camp=("SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " 
+		+ "FROM campground " 
+		+ "WHERE campground_id=?" 
+		+ "ORDER BY name");
 		SqlRowSet campNextRow = jdbcTemplate.queryForRowSet(camp,campgroundId);
 		while(campNextRow.next()) {		
 			Campground campground =mapRowToCampground(campNextRow);
@@ -49,7 +52,10 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 	@Override
 	public ArrayList<Campground> getCampgroundsByParkId(Long parkId) {
 		ArrayList<Campground> campInfo = new ArrayList<>();
-		String camp=("SELECT * FROM campground WHERE park_id=?");
+		String camp=("SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " 
+				+ "FROM campground " 
+				+ "WHERE park_id=?" 
+				+ "ORDER BY name");
 		SqlRowSet campNextRow = jdbcTemplate.queryForRowSet(camp,parkId);
 		while(campNextRow.next()) {		
 			Campground campground =mapRowToCampground(campNextRow);
