@@ -1,39 +1,30 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Campground {
 	
 	String campgroundIDs;
 	String name;
-	LocalDate openTo;
-	LocalDate openFrom;
+	Date openTo;
+	Date openFrom;
 	boolean isOpen;
 	BigDecimal dailyFee;
 	
-	public Campground() {}
+	
 
-	public Campground(String campgroundIDs, String name, LocalDate openTo, LocalDate openFrom, boolean isOpen,
-			BigDecimal dailyFee) {
-		super();
-		this.campgroundIDs = campgroundIDs;
-		this.name = name;
-		this.openTo = openTo;
-		this.openFrom = openFrom;
-		this.isOpen = isOpen;
-		this.dailyFee = dailyFee;
-	}
 	public String getCampgroundIDs() {
 		return campgroundIDs;
 	}
 	public String getName() {
 		return name;
 	}
-	public LocalDate getOpenTo() {
+	public Date getOpenTo() {
 		return openTo;
 	}
-	public LocalDate getOpenFrom() {
+	public Date getOpenFrom() {
 		return openFrom;
 	}
 	public boolean isOpen() {
@@ -49,10 +40,10 @@ public class Campground {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setOpenTo(LocalDate openTo) {
+	public void setOpenTo(Date openTo) {
 		this.openTo = openTo;
 	}
-	public void setOpenFrom(LocalDate openFrom) {
+	public void setOpenFrom(Date openFrom) {
 		this.openFrom = openFrom;
 	}
 	public void setOpen(boolean isOpen) {
