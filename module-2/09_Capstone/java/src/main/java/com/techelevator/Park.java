@@ -1,6 +1,6 @@
 package com.techelevator;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Park {
 	
@@ -10,10 +10,12 @@ public class Park {
 	String location;
 	long visitors;
 	String descriptionOfPark;
-	LocalDate dateEstablished;
+	Date dateEstablished;
+	
+	public Park() {}
 	
 	public Park(String parkID, String name, String area, String location, long visitors, String descriptionOfPark,
-			LocalDate dateEstablished) {
+			Date dateEstablished) {
 		this.parkID = parkID;
 		this.name = name;
 		this.area = area;
@@ -25,8 +27,34 @@ public class Park {
 	
 	
 	
-	
-	
+	public void setParkID(String parkID) {
+		this.parkID = parkID;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setVisitors(long visitors) {
+		this.visitors = visitors;
+	}
+
+	public void setDescriptionOfPark(String descriptionOfPark) {
+		this.descriptionOfPark = descriptionOfPark;
+	}
+
+	public void setDateEstablished(Date dateEstablished) {
+		this.dateEstablished = dateEstablished;
+	}
+
 	public String getParkID() {
 		return parkID;
 	}
@@ -48,7 +76,7 @@ public class Park {
 	public String getDescriptionOfPark() {
 		return descriptionOfPark;
 	}
-	public LocalDate getDateEstablished() {
+	public Date getDateEstablished() {
 		return dateEstablished;
 	}
 	

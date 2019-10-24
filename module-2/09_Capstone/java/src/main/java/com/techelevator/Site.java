@@ -9,7 +9,7 @@ public class Site {
 	private int maxRVLength;
 	private boolean utilities;
 	
-	
+	public Site() {}
 	public Site(Long siteId, Long campgroundId, int siteNumber, int maxOccupancy, boolean accessible, int maxRVLength, boolean utilities) {
 		this.siteId = siteId;
 		this.campgroundId = campgroundId;
@@ -40,6 +40,27 @@ public class Site {
 	}
 	public boolean isUtilities() {
 		return utilities;
+	}
+	public void setSiteId(Long siteId) {
+		this.siteId = siteId;
+	}
+	public void setCampgroundId(Long campgroundId) {
+		this.campgroundId = campgroundId;
+	}
+	public void setSiteNumber(int siteNumber) {
+		this.siteNumber = siteNumber;
+	}
+	public void setMaxOccupancy(int maxOccupancy) {
+		this.maxOccupancy = maxOccupancy;
+	}
+	public void setAccessible(boolean accessible) {
+		this.accessible = accessible;
+	}
+	public void setMaxRVLength(int maxRVLength) {
+		this.maxRVLength = maxRVLength;
+	}
+	public void setUtilities(boolean utilities) {
+		this.utilities = utilities;
 	}
 	
 	
