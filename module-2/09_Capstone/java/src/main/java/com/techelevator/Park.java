@@ -1,42 +1,85 @@
 package com.techelevator;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Park {
 	
-	String parkID;
+	long parkID;
 	String name;
-	String area;
+	long area;
 	String location;
 	long visitors;
 	String descriptionOfPark;
-	LocalDate dateEstablished;
+	Date dateEstablished;
 	
-	public Park(String parkID, String name, String area, String location, long visitors, String descriptionOfPark,
-			LocalDate dateEstablished) {
-		this.parkID = parkID;
+	
+	public Park() {
+	}
+	
+	
+	
+	public void setName(String name) {
 		this.name = name;
+	}
+
+
+
+
+
+	public void setArea(long area) {
 		this.area = area;
+	}
+
+
+
+
+
+	public void setLocation(String location) {
 		this.location = location;
+	}
+
+
+
+
+
+	public void setVisitors(long visitors) {
 		this.visitors = visitors;
+	}
+
+
+
+
+
+	public void setDescriptionOfPark(String descriptionOfPark) {
 		this.descriptionOfPark = descriptionOfPark;
+	}
+
+
+
+
+
+	public void setDateEstablished(Date dateEstablished) {
 		this.dateEstablished = dateEstablished;
 	}
 	
 	
+
 	
 	
 	
-	public String getParkID() {
+	
+	
+	public long getParkID() {
 		return parkID;
 	}
-	public void setPark_ID(String parkID) {
+	public void setPark_ID(long parkID) {
 		this.parkID = parkID;
 	}
 	public String getName() {
 		return name;
 	}
-	public String getArea() {
+	public long getArea() {
 		return area;
 	}
 	public String getLocation() {
@@ -48,7 +91,7 @@ public class Park {
 	public String getDescriptionOfPark() {
 		return descriptionOfPark;
 	}
-	public LocalDate getDateEstablished() {
+	public Date getDateEstablished() {
 		return dateEstablished;
 	}
 	
