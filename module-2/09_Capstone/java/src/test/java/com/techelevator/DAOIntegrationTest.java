@@ -7,7 +7,9 @@ import javax.sql.DataSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public abstract class DAOIntegrationTest {
 
@@ -15,10 +17,19 @@ public abstract class DAOIntegrationTest {
 	 * every database interaction is part of the same database
 	 * session and hence the same database transaction */
 	private static SingleConnectionDataSource dataSource;
+	private static JdbcTemplate jdbc;
+	private Long dummySiteId;
+	private Long dummyCampgroundId;
+	private Long dummyParkId;
 
 	/* Before any tests are run, this method initializes the datasource for testing. */
-	@BeforeClass
-	public static void setupDataSource() {
+	@BeforeClass	
+	private static void setup() {
+		setupDataSource();
+		createTestData();
+	}
+	
+	private static void setupDataSource() {
 		dataSource = new SingleConnectionDataSource();
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/campground");
 		dataSource.setUsername("postgres");
@@ -27,7 +38,15 @@ public abstract class DAOIntegrationTest {
 		 * returned by this DataSource. This allows us to rollback
 		 * any changes after each test */
 		dataSource.setAutoCommit(false);
+		jdbc = new JdbcTemplate(dataSource);
 	}
+	private static void createTestData() {
+		JdbcTemplate jdbc = new JdbcTemplate(getDataSource());
+		//jdbc.update("INSERT INTO park )
+		//jdbc.update("INSERT INTO campground )
+		//jdbc.update("INSERT INTO site)
+	}
+	
 
 	/* After all tests have finished running, this method will close the DataSource */
 	@AfterClass
@@ -44,7 +63,21 @@ public abstract class DAOIntegrationTest {
 
 	/* This method provides access to the DataSource for subclasses so that
 	 * they can instantiate a DAO for testing */
-	protected DataSource getDataSource() {
+	protected static DataSource getDataSource() {
 		return dataSource;
 	}
+	
+	private Long getNextSiteId() {
+		SqlRowSet nextIdResult = jdbc.queryForRowSet("SELECT nextval('seq_site_id')");
+		nextIdResult.next();
+		return nextIdResult.getLong(1);
+	}
+	
+	private Long getNextCampgroundId() {
+		SqlRowSet nextIdResult = jdbc.queryForRowSet("SELECT nextval('seq_campground_id')");
+		nextIdResult.next();
+		return nextIdResult.getLong(1);
+	}
+
+	
 }
