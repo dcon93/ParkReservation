@@ -4,7 +4,14 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import com.techelevator.dao.JDBCCampgroundDAO;
+import com.techelevator.dao.JDBCParkDAO;
+import com.techelevator.dao.JDBCReservationDAO;
+import com.techelevator.dao.JDBCSiteDAO;
+
 public class CampgroundCLI {
+
+	Menu menu;
 
 	public static void main(String[] args) {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -17,10 +24,39 @@ public class CampgroundCLI {
 	}
 
 	public CampgroundCLI(DataSource datasource) {
-		// create your DAOs here
+		menu = new Menu(System.in, System.out, datasource);
+
 	}
 
 	public void run() {
+		while (true) {
+			Park chosenPark = menu.selectAPark();
+			if (chosenPark == null) {
+				System.exit(0);
+			} else {
+				boolean parkInfo = true;
+				while (parkInfo) {
+					int menuChoice = menu.parkInfo(chosenPark);
 
+					switch (menuChoice) {
+					case 3:
+						parkInfo = false;
+						break;
+					case 2: 
+						menu.makeReservationByPark(chosenPark);
+						break;
+					case 1:
+						boolean makeReservation = menu.parkCampgrounds(chosenPark);
+						if (makeReservation) {
+							menu.makeReservationByCampground(chosenPark);
+						}
+						break;
+					}
+
+				}
+
+			}
+
+		}
 	}
 }
