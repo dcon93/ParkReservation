@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -54,7 +55,7 @@ public class Menu {
 
 		return choice;
 	}
-
+	
 	private Map<String, Park> printAndMapParks(ArrayList<Park> parks) {
 		Map<String, Park> parkToNumber = new HashMap<String, Park>();
 
@@ -70,14 +71,68 @@ public class Menu {
 
 		return parkToNumber;
 	}
-
+	
 	public int parkInfo(Park chosenPark) {
-	} // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
+
+		System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
+		System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
+		System.out.printf("%-16s %s%n", "Established:", chosenPark.getDateEstablished());
+		System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
+		System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
+		System.out.println();
+		System.out.println(chosenPark.getDescriptionOfPark());
+
+		System.out.print("1) View Campgrounds");
+		System.out.print("2) Search for Reservation");
+		System.out.print("3) Return to previous screen");
+		System.out.print("Select a choice >>> ");
+
+		while (true) {
+			String choice = userInput.nextLine();
+
+			if (choice.equals("1") || choice.equals("2") || choice.equals("3")) {
+				int numberChoice = Integer.parseInt(choice);
+				return numberChoice;
+			} else {
+				System.out.println("Please select an option using a 1, 2, or 3");
+			}
+		}
+	}
+
 
 	public boolean parkCampgrounds(Park chosenPark) {
-	} // Displays campgrounds for the given park; returns true if the user wants to
-		// make a reservation, false if they want to go to prev screen.
 
+		System.out.println(chosenPark.getName() + " National Park Campgrounds");
+		System.out.println("Id  Name                               Open       Close         DailyFee");
+		List<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
+		for (Campground camp : campgrounds) {
+			System.out.print("#" + camp.getCampgroundID() + "  ");
+			System.out.print(String.format("%-35s", camp.getName()));
+			System.out.print(String.format("%-11s", camp.getOpenFrom()));
+			System.out.print(String.format("%-14s", (camp.getOpenTo())));
+			System.out.println(String.format("%-25s", "$" + camp.getDailyFee()));
+
+			System.out.print("1( Search for Available Reservation");
+			System.out.print("2( Return to Previous Screen");
+		}
+		while (true) {
+
+			String choice = userInput.nextLine();
+
+			if (choice.equals("1")) {
+				return true;
+			}
+			if (choice.equals("2")) {
+				return false;
+			} else {
+				System.out.println("Please make another choice using a 1 or a 2");
+			}
+
+		}
+	}
+
+
+	
 	public void makeReservationByCampground(Park chosenPark) { // Displays campgrounds and lets user make reservation
 																// and stuff.
 		ArrayList<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
@@ -93,8 +148,6 @@ public class Menu {
 				badInput = false;
 			}
 		}
-		
-		
 
 	}
 
@@ -119,6 +172,7 @@ public class Menu {
 
 	}
 
+	
 	public void makeReservationByPark(Park chosenPark) {
 	}// Displays campgrounds and lets user make reservation and stuff.
 
