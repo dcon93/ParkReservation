@@ -49,9 +49,9 @@ public class JDBCReservationDAOIntegrationTests extends DAOIntegrationTest{
 	public void get_all_reservations_next_30_days() {
 		ArrayList<Reservation> emptyList = dao.getAllReservationsNext30(getDummyParkId1());
 	
-		Reservation reservation = new Reservation(getDummySiteId1(), "Reservation One", new Date(119,10,29), new Date(119,10,31));
+		Reservation reservation = new Reservation(getDummySiteId1(), "Reservation One", new Date(119,9,29), new Date(119,9,31));
 		dao.saveReservation(reservation);
-		Reservation reservation2 = new Reservation(getDummySiteId2(), "Reservation Two", new Date(119,10,29), new Date(119,10,31));
+		Reservation reservation2 = new Reservation(getDummySiteId2(), "Reservation Two", new Date(119,9,29), new Date(119,9,31));
 		dao.saveReservation(reservation2);
 		
 		ArrayList<Reservation> twoRes = dao.getAllReservationsNext30(getDummyParkId1());
