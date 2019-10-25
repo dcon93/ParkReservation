@@ -31,4 +31,27 @@ public class DAOIntegrationCampgroundTests extends DAOIntegrationTest {
 		
 	}
 	
+	@Test
+	public void list_comes_back_in_alphabetical_order() {
+		ArrayList<Campground> campground = dao.getCampgroundsByParkId(getDummyParkId1());
+		
+		Assert.assertTrue(campground.size() > 1);
+		
+		String testName = campground.get(0).getName();
+		
+		for(int i = 1; i < campground.size(); i++) {
+			String newName = campground.get(i).name;
+			
+			boolean nameComparison = testName.compareTo(newName) < 1;
+			
+			Assert.assertTrue(nameComparison);
+			
+			testName = newName;
+			
+			
+		}
+		
+		
+	}
+	
 }
