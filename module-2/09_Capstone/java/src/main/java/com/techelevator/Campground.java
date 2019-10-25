@@ -6,24 +6,23 @@ import java.time.LocalDate;
 
 public class Campground {
 	
-	long campgroundIDs;
+	long campgroundID;
 	String name;
-	Date openTo;
-	Date openFrom;
+	String openTo;
+	String openFrom;
 	BigDecimal dailyFee;
 	
-	
 
-	public long getCampgroundIDs() {
-		return campgroundIDs;
+	public long getCampgroundID() {
+		return campgroundID;
 	}
 	public String getName() {
 		return name;
 	}
-	public Date getOpenTo() {
+	public String getOpenTo() {
 		return openTo;
 	}
-	public Date getOpenFrom() {
+	public String getOpenFrom() {
 		return openFrom;
 	}
 	public BigDecimal getDailyFee() {
@@ -31,16 +30,16 @@ public class Campground {
 	}
 	
 
-	public void setCampgroundIDs(long campgroundIDs) {
-		this.campgroundIDs = campgroundIDs;
+	public void setCampgroundID(long campgroundID) {
+		this.campgroundID = campgroundID;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setOpenTo(Date openTo) {
+	public void setOpenTo(String openTo) {
 		this.openTo = openTo;
 	}
-	public void setOpenFrom(Date openFrom) {
+	public void setOpenFrom(String openFrom) {
 		this.openFrom = openFrom;
 	}
 	public void setDailyFee(BigDecimal dailyFee) {

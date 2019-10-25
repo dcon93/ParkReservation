@@ -1,29 +1,38 @@
 package com.techelevator;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
+import java.util.ArrayList;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.techelevator.dao.JDBCSiteDAO;
+
 
 public class JDBCSiteDAOIntegrationTests extends DAOIntegrationTest{
-	JdbcTemplate j = new JdbcTemplate(getDataSource());
+	private JDBCSiteDAO dao = new JDBCSiteDAO(getDataSource());
 	
 
 	@Test
 	public void get_site_by_id_works() {
-		String insertSite = "INSERT INTO site (site_id, campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities) " +
-							"VALUES (?, 
-		j.update()
+		Site theSite = dao.getSiteBySiteId(getDummySiteId1());
+		Assert.assertEquals(getDummySiteId1(), theSite.getSiteId());
 	}
 	
-	private Long getNextSiteId() {
-		SqlRowSet nextIdResult = j.queryForRowSet("SELECT nextval('seq_site_id')");
-		nextIdResult.next();
-		return nextIdResult.getLong(1);
+	@Test 
+	public void get_all_sites_by_campground_works() {
+		ArrayList<Site> sites = dao.getAllSitesByCampgroundId(getDummyCampgroundId1());
+		ArrayList<Site> noSites = dao.getAllSitesByCampgroundId(getDummyCampgroundId2());
+		
+		Assert.assertEquals(2, sites.size());
+		Assert.assertEquals(0, noSites.size());
 	}
 	
-	private Long getNextCampgroundId() {
-		SqlRowSet nextIdResult = j.queryForRowSet("SELECT nextval('seq_campground_id')");
-		nextIdResult.next();
-		return nextIdResult.getLong(1);
+	@Test
+	public void get_all_sites_by_park_works() {
+		ArrayList<Site> sites = dao.getAllSitesByParkId(getDummyParkId1());
+		ArrayList<Site> noSites = dao.getAllSitesByParkId(getDummyParkId2());
+		
+		Assert.assertEquals(2, sites.size());
+		Assert.assertEquals(0, noSites.size());
 	}
-	
 }
