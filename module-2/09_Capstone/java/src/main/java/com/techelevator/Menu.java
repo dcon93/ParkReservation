@@ -33,7 +33,7 @@ public class Menu {
 	
 	
 	
-	public void parkInfo(Park chosenPark) {
+	public int parkInfo(Park chosenPark) {
 		String choice = userInput.nextLine();
 		int numberChoice = Integer.parseInt(choice);
 		
@@ -57,8 +57,9 @@ public class Menu {
 			}  else if (numberChoice == 2){
 				
 				makeReservationByPark(chosenPark);
+			} 
 			}
-			}
+		return numberChoice;
 		}
 		
 		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
