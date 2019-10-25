@@ -17,8 +17,8 @@ public class DAOIntegrationCampgroundTests extends DAOIntegrationTest {
 		Campground campground = dao.getCampgroundByCampgroundId(getDummyCampgroundId1());
 		Campground secondCampground = dao.getCampgroundByCampgroundId(getDummyCampgroundId2());
 		
-		Assert.assertEquals(1, campground);
-		Assert.assertEquals(1, secondCampground);
+		Assert.assertSame(getDummyCampgroundId1(), campground.getCampgroundID());
+		Assert.assertSame(getDummyCampgroundId2(), secondCampground.getCampgroundID());
 	}
 	
 	@Test
