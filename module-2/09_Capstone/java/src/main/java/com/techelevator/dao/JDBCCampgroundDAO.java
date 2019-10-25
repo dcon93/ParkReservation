@@ -21,19 +21,18 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 	}
 	
 	@Override
-	public ArrayList<Campground> getCampgroundByCampgroundId(Long campgroundId) {
-		ArrayList<Campground> campInfo = new ArrayList<>();
-		String camp=("SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " 
-		+ "FROM campground " 
-		+ "WHERE campground_id=? " 
-		+ "ORDER BY name");
-		SqlRowSet campNextRow = jdbcTemplate.queryForRowSet(camp,campgroundId);
-		while(campNextRow.next()) {		
-			Campground campground =mapRowToCampground(campNextRow);
-			campInfo.add(campground);
-		}
-		return campInfo;
+	public Campground getCampgroundByCampgroundId(Long campgroundId) {
+		Campground theCampground = null;
+		String sqlFindCampgroundById = "SELECT campground_id, park_id, name, open_from_mm, open_to_mm, daily_fee " 
+				+ "FROM campground " 
+				+ "WHERE campground_id=? " 
+				+ "ORDER BY name";
+		SqlRowSet results = this.jdbcTemplate.queryForRowSet(sqlFindCampgroundById, campgroundId);
 
+		if (results.next()) {
+			theCampground = mapRowToCampground(results);
+		}
+		return theCampground;
 	}
 	
 	private Campground mapRowToCampground(SqlRowSet campNextRow){
@@ -41,8 +40,8 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 		 campground = new Campground();
 		campground.setCampgroundID(campNextRow.getLong("campground_id"));
 		campground.setName(campNextRow.getString("name"));
-		campground.setOpenFrom(campNextRow.getDate("open_from_mm"));
-		campground.setOpenTo(campNextRow.getDate("open_to_mm"));
+		campground.setOpenFrom(campNextRow.getString("open_from_mm"));
+		campground.setOpenTo(campNextRow.getString("open_to_mm"));
 		campground.setDailyFee(campNextRow.getBigDecimal("daily_fee"));
 		
 		return campground;
