@@ -84,6 +84,11 @@ public class Menu {
 			System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
 			System.out.println();
 			System.out.println(chosenPark.getDescriptionOfPark());
+			
+			System.out.print("1) View Campgrounds");
+			System.out.print("2) Search for Reservation");
+			System.out.print("3) Return to previous screen");
+			System.out.print("Select a choice >>> ");
 
 			while (true) {
 			String choice = userInput.nextLine();
@@ -94,7 +99,9 @@ public class Menu {
 				return numberChoice;
 			} else {
 				System.out.println("Please select an option using a 1, 2, or 3");
-			}}}
+			}
+			}
+			}
 		
 		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
 	public boolean parkCampgrounds(Park chosenPark) {
@@ -108,6 +115,9 @@ public class Menu {
 			System.out.print(String.format("%-11s",camp.getOpenFrom()));
 			System.out.print(String.format("%-14s",(camp.getOpenTo())));
 			System.out.println(String.format("%-25s","$"+camp.getDailyFee()));
+			
+			System.out.print("1( Search for Available Reservation");
+			System.out.print("2( Return to Previous Screen");
 		}
 		 while(true){
 			 
@@ -121,6 +131,7 @@ public class Menu {
 			}else {
 				System.out.println("Please make another choice using a 1 or a 2");
 			}
+			
 		  }
 	}	
 		// Displays  campgrounds for the given park; returns true if the user wants to make a reservation, false if they want to go to prev screen.
