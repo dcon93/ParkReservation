@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Park {
 	
-	long parkID;
+	Long parkID;
 	String name;
 	long area;
 	String location;
@@ -14,7 +14,10 @@ public class Park {
 	Date dateEstablished;
 	
 	
-	
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 	
 	public void setName(String name) {
@@ -68,7 +71,7 @@ public class Park {
 	
 	
 	
-	public long getParkID() {
+	public Long getParkID() {
 		return parkID;
 	}
 	public void setPark_ID(long parkID) {

@@ -28,7 +28,7 @@ public class CampgroundCLI {
 
 	}
 
-	public void run() {
+	public void run() {		
 		while (true) {
 			Park chosenPark = menu.selectAPark();
 			if (chosenPark == null) {
