@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.Reservation;
+import com.techelevator.Site;
 
 public class JDBCReservationDAO implements ReservationDAO {
 
@@ -33,8 +34,21 @@ public class JDBCReservationDAO implements ReservationDAO {
 
 		return available;
 	}
+	
+	public Reservation getReservation(Long reservationId) { // returns reservation with id
+		Reservation theReservation = null;
 
-	private boolean isReservationAvailable(Reservation reservation) { // returns true if the reservation is available
+		String sqlGetReservationById = "SELECT reservation_id, site_id, name, from_date, to_date, create_date " + 
+									"FROM reservation WHERE reservation_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetReservationById, reservationId);
+		if (results.next()) {
+			theReservation = mapRowToReservation(results);
+		}
+
+		return theReservation;
+	}
+
+	public boolean isReservationAvailable(Reservation reservation) { // returns true if the reservation is available
 		boolean available = false;
 		ArrayList<Reservation> reservationsThatOverlap = new ArrayList<Reservation>();
 
@@ -57,7 +71,8 @@ public class JDBCReservationDAO implements ReservationDAO {
 	public ArrayList<Reservation> getAllReservationsNext30(Long parkId) { //returns all reservations for next 30 days in some order for given park
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
-		String sqlGetReservatiosForNext30Days = "SELECT * FROM reservation " +
+		String sqlGetReservatiosForNext30Days = "SELECT reservation_id, site_id, reservation.name, from_date, to_date, create_date FROM reservation " +
+												"JOIN site USING (site_id) " +
 												"JOIN campground USING (campground_id) " +
 												"WHERE (CURRENT_DATE, (CURRENT_DATE + 30)) OVERLAPS (from_date, to_date) " +
 												"AND campground.park_id = ? " +

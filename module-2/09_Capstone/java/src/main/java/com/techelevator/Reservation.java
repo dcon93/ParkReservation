@@ -12,12 +12,11 @@ public class Reservation {
 	
 	public Reservation() {}
 	
-	public Reservation(Long reservationId, Long siteId, String name, Date fromDate, Date toDate, Date createDate) {
+	public Reservation(Long siteId, String name, Date fromDate, Date toDate) {
 		this.siteId = siteId;
 		this.name = name;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.createDate = createDate;
 	}
 	
 	public Long getReservationId() {
