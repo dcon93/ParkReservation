@@ -14,11 +14,11 @@ public class DAOIntegrationCampgroundTests extends DAOIntegrationTest {
 	
 	@Test
 	public void get__campgrounds_by_campground_id_works() {
-		ArrayList<Campground> campground = dao.getCampgroundByCampgroundId(getDummyCampgroundId1());
-		ArrayList<Campground> secondCampground = dao.getCampgroundByCampgroundId(getDummyCampgroundId2());
+		Campground campground = dao.getCampgroundByCampgroundId(getDummyCampgroundId1());
+		Campground secondCampground = dao.getCampgroundByCampgroundId(getDummyCampgroundId2());
 		
-		Assert.assertEquals(1, campground.size());
-		Assert.assertEquals(1, secondCampground.size());
+		Assert.assertEquals(1, campground);
+		Assert.assertEquals(1, secondCampground);
 	}
 	
 	@Test
