@@ -68,15 +68,16 @@ public class JDBCReservationDAO implements ReservationDAO {
 	}
 
 	@Override
-	public ArrayList<Reservation> getAllReservationsNext30(Long parkId) { //returns all reservations for next 30 days in some order for given park
+	public ArrayList<Reservation> getAllReservationsNext30(Long parkId) { //NEEDS TO BE FIXED returns all reservations for next ALL days in some order for given park
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
 		String sqlGetReservatiosForNext30Days = "SELECT reservation_id, site_id, reservation.name, from_date, to_date, create_date FROM reservation " +
-												"JOIN site USING (site_id) " +
-												"JOIN campground USING (campground_id) " +
-												"WHERE (CURRENT_DATE, (CURRENT_DATE + 30)) OVERLAPS (from_date, to_date) " +
-												"AND campground.park_id = ? " +
-		       									"ORDER BY campground.name, site_number";
+											"JOIN site USING (site_id) " +
+											"JOIN campground USING (campground_id) " +
+											"WHERE campground.park_id = ? " + 
+									        "AND (CURRENT_DATE, CURRENT_DATE + 30) OVERLAPS (from_date, to_date) " +
+											"ORDER BY campground.name, site_number";
+		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetReservatiosForNext30Days, parkId);
 		
 		while (results.next()) {

@@ -31,14 +31,17 @@ public class JDBCReservationDAOIntegrationTests extends DAOIntegrationTest{
 	@Test
 	public void is_reservation_available_works() {
 		Reservation reservation = new Reservation(getDummySiteId1(), "Reservation One", new Date(300,10,10), new Date(300,11, 10));
-		boolean firstResult = dao.isReservationAvailable(reservation);
-		dao.saveReservation(reservation);
-				
 		Reservation conflictingReservation = new Reservation(getDummySiteId1(), "Reservation Two", new Date(300,10,10), new Date(300,11, 10));
+
+		boolean firstResult = dao.isReservationAvailable(reservation);
 		boolean secondResult = dao.isReservationAvailable(conflictingReservation);
+
+		dao.saveReservation(reservation);
+		boolean thirdResult = dao.isReservationAvailable(conflictingReservation);
 		
 		Assert.assertTrue("first reservation is fine", firstResult);
-		Assert.assertFalse("second reservation conflicts", secondResult);	
+		Assert.assertTrue("second reservation doesn't conflict first time", secondResult);
+		Assert.assertFalse("second conflicts second time, since first is saved", thirdResult);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -57,12 +60,10 @@ public class JDBCReservationDAOIntegrationTests extends DAOIntegrationTest{
 		dao.saveReservation(reservationFarOut);
 		
 		ArrayList<Reservation> stillTwoRes = dao.getAllReservationsNext30(getDummyParkId1());
-		ArrayList<Reservation> testExisting = dao.getAllReservationsNext30((long)1);
 		
-		Assert.assertEquals(35, stillTwoRes.size());
-		Assert.assertEquals(0, emptyList.size());
-		Assert.assertEquals(2, twoRes.size());
-		Assert.assertEquals(2, stillTwoRes.size());
+		Assert.assertEquals("no reservations", 0, emptyList.size());
+		Assert.assertEquals("two saved reservations in next 30", 2, twoRes.size());
+		Assert.assertEquals("three reservations, but one is out of range", 2, stillTwoRes.size());
 		
 	}
 	
