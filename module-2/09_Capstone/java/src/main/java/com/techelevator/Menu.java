@@ -2,8 +2,10 @@ package com.techelevator;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -32,46 +34,6 @@ public class Menu {
 		reservationDAO = new JDBCReservationDAO(datasource);
 	}
 	
-<<<<<<< HEAD
-	public Park selectAPark() {} // displays parks to user and returns their choice of park; returns null if they choose 'Q'
-	
-	
-	
-	public int parkInfo(Park chosenPark) {
-		String choice = userInput.nextLine();
-		int numberChoice = Integer.parseInt(choice);
-		
-		while (true)
-		{
-			System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
-			System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
-			System.out.printf("%-16s %s%n","Established:", chosenPark.getDateEstablished());
-			System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
-			System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
-			System.out.println();
-			System.out.println(chosenPark.getDescriptionOfPark());
-
-			
-			if (numberChoice == 3) {
-				break;
-			} else if (numberChoice == 1){
-				
-				parkCampgrounds(chosenPark);
-			
-			}  else if (numberChoice == 2){
-				
-				makeReservationByPark(chosenPark);
-			} 
-			}
-		return numberChoice;
-		}
-		
-		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
-	
-	
-	
-	
-=======
 	public Park selectAPark() { // displays parks to user and returns their choice of park; returns null if they choose 'Q'
 		Park choice = null;
 		
@@ -113,17 +75,62 @@ public class Menu {
 
 	
 
-	public int parkInfo(Park chosenPark) {} // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
->>>>>>> 8f499ec9b4041317e6f134871a3ed3898436ec5a
-	public boolean parkCampgrounds(Park chosenPark) {} // Displays  campgrounds for the given park; returns true if the user wants to make a reservation, false if they want to go to prev screen.
-	
-	
-	
+	public int parkInfo(Park chosenPark) {
+		
+		String choice = userInput.nextLine();
+		int numberChoice = Integer.parseInt(choice);
+		
+		while (true)
+		{
+			System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
+			System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
+			System.out.printf("%-16s %s%n","Established:", chosenPark.getDateEstablished());
+			System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
+			System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
+			System.out.println();
+			System.out.println(chosenPark.getDescriptionOfPark());
+
+			
+			if (numberChoice == 3) {
+				break;
+			} else if (numberChoice == 1){
+				
+				parkCampgrounds(chosenPark);
+			
+			}  else if (numberChoice == 2){
+				
+				makeReservationByPark(chosenPark);
+			} 
+			}
+		return numberChoice;
+		}
+		
+		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
+	public boolean parkCampgrounds(Park chosenPark) {
+		String choice = userInput.nextLine();
+		int numberChoice = Integer.parseInt(choice);
+		
+		System.out.println(chosenPark.getName()+ " National Park Campgrounds");
+		System.out.println( "Id  Name                               Open       Close         DailyFee");
+		List<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
+		for(Campground camp:campgrounds){
+			System.out.print("#"+camp.getCampgroundID()+"  ");
+			System.out.print(String.format("%-35s",camp.getName()));
+			System.out.print(String.format("%-11s",camp.getOpenFrom()));
+			System.out.print(String.format("%-14s",(camp.getOpenTo())));
+			System.out.println(String.format("%-25s","$"+camp.getDailyFee()));
+		}
+		 while(true){
+			if(numberChoice == 1){
+				makeReservationByCampground(chosenPark);	
+			}
+			if(numberChoice ==  2){
+				return false;
+			}
+		  }
+	}	
+		// Displays  campgrounds for the given park; returns true if the user wants to make a reservation, false if they want to go to prev screen.
 	public void makeReservationByCampground(Park chosenPark) {} // Displays  campgrounds and lets user make reservation and stuff.
-	
-	
-	
-	
 	public void makeReservationByPark(Park chosenPark) {}// Displays  campgrounds and lets user make reservation and stuff.
 
 }
