@@ -24,7 +24,7 @@ public class JDBCParkDAO implements ParkDAO{
 		@Override
 		public Park getParkById(Long parkId) {
 			Park thePark = null;
-			String sqlFindCityById = "SELECT park_id, name, area, location, visitors, description, establish_date " + "FROM park " + "WHERE id = ?";
+			String sqlFindCityById = "SELECT park_id, name, area, location, visitors, description, establish_date " + "FROM park " + "WHERE park_id = ?";
 			SqlRowSet results = this.jdbcTemplate.queryForRowSet(sqlFindCityById, parkId);
 
 			if (results.next()) {
