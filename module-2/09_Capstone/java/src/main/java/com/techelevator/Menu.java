@@ -77,11 +77,6 @@ public class Menu {
 
 	public int parkInfo(Park chosenPark) {
 		
-		String choice = userInput.nextLine();
-		int numberChoice = Integer.parseInt(choice);
-		
-		while (true)
-		{
 			System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
 			System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
 			System.out.printf("%-16s %s%n","Established:", chosenPark.getDateEstablished());
@@ -90,25 +85,19 @@ public class Menu {
 			System.out.println();
 			System.out.println(chosenPark.getDescriptionOfPark());
 
+			while (true) {
+			String choice = userInput.nextLine();
 			
-			if (numberChoice == 3) {
-				break;
-			} else if (numberChoice == 1){
-				
-				parkCampgrounds(chosenPark);
 			
-			}  else if (numberChoice == 2){
-				
-				makeReservationByPark(chosenPark);
-			} 
-			}
-		return numberChoice;
-		}
+			if (choice.equals("1")|| choice.equals("2")|| choice.equals("3")) {
+				int numberChoice = Integer.parseInt(choice);
+				return numberChoice;
+			} else {
+				System.out.println("Please select an option using a 1, 2, or 3");
+			}}}
 		
 		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
 	public boolean parkCampgrounds(Park chosenPark) {
-		String choice = userInput.nextLine();
-		int numberChoice = Integer.parseInt(choice);
 		
 		System.out.println(chosenPark.getName()+ " National Park Campgrounds");
 		System.out.println( "Id  Name                               Open       Close         DailyFee");
@@ -121,11 +110,16 @@ public class Menu {
 			System.out.println(String.format("%-25s","$"+camp.getDailyFee()));
 		}
 		 while(true){
-			if(numberChoice == 1){
-				makeReservationByCampground(chosenPark);	
+			 
+			 String choice = userInput.nextLine();
+				
+			if(choice.equals("1")){
+				return true;	
 			}
-			if(numberChoice ==  2){
+			if(choice.equals("2")){
 				return false;
+			}else {
+				System.out.println("Please make another choice using a 1 or a 2");
 			}
 		  }
 	}	
