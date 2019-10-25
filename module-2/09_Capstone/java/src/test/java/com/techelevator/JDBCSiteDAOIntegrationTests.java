@@ -18,21 +18,6 @@ public class JDBCSiteDAOIntegrationTests extends DAOIntegrationTest{
 		Assert.assertEquals(getDummySiteId1(), theSite.getSiteId());
 	}
 	
-	@Test 
-	public void get_all_sites_by_campground_works() {
-		ArrayList<Site> sites = dao.getAllSitesByCampgroundId(getDummyCampgroundId1());
-		ArrayList<Site> noSites = dao.getAllSitesByCampgroundId(getDummyCampgroundId2());
-		
-		Assert.assertEquals(2, sites.size());
-		Assert.assertEquals(0, noSites.size());
-	}
-	
-	@Test
-	public void get_all_sites_by_park_works() {
-		ArrayList<Site> sites = dao.getAllSitesByParkId(getDummyParkId1());
-		ArrayList<Site> noSites = dao.getAllSitesByParkId(getDummyParkId2());
-		
-		Assert.assertEquals(2, sites.size());
-		Assert.assertEquals(0, noSites.size());
-	}
+
+
 }

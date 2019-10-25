@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.techelevator.Reservation;
 import com.techelevator.Site;
 
 
@@ -33,13 +34,16 @@ public class JDBCSiteDAO implements SiteDAO {
 
 	}
 
-	public ArrayList<Site> getAllSitesByCampgroundId(Long campgroundId) { // in order by site number
+	@Override
+	public ArrayList<Site> getAllSitesByCampgroundId(Long campgroundId, Reservation reservation) { // in order by site number
 		ArrayList<Site> sites = new ArrayList<Site>();
 
 		String sqlGetSiteByCampgroundId = "SELECT site_id, campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities " + 
-										  "FROM site WHERE campground_id = ? " +
-										  "ORDER BY site_number";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSiteByCampgroundId, campgroundId);
+										  "FROM site JOIN campground USING (campground_id) " +
+										  "WHERE campground_id = ? " +
+										  "AND site_id NOT IN (SELECT DISTINCT site_id FROM reservation WHERE (?, ?) OVERLAPS (from_date, to_date)) " + 
+										  "ORDER BY campground.name, site_number";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSiteByCampgroundId, campgroundId, reservation.getFromDate(), reservation.getToDate());
 		
 		
 		while (results.next()) {
@@ -50,14 +54,16 @@ public class JDBCSiteDAO implements SiteDAO {
 
 	}
 
-	public ArrayList<Site> getAllSitesByParkId(Long parkId) { // in order by campground and then by site number
+	@Override
+	public ArrayList<Site> getAllSitesByParkId(Long parkId, Reservation reservation) { // in order by campground and then by site number
 		ArrayList<Site> sites = new ArrayList<Site>();
 
 		String sqlGetSiteByParkId = "SELECT site_id, campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities " + 
 									"FROM site JOIN campground USING (campground_id) " +
 									"WHERE park_id = ? " +
+									"AND site_id NOT IN (SELECT DISTINCT site_id FROM reservation WHERE (?, ?) OVERLAPS (from_date, to_date)) " + 
 									"ORDER BY campground.name, site_number";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSiteByParkId, parkId);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSiteByParkId, parkId, reservation.getFromDate(), reservation.getToDate());
 		
 		
 		while (results.next()) {
@@ -67,7 +73,7 @@ public class JDBCSiteDAO implements SiteDAO {
 		return sites;
 
 	}
-
+	
 	private Site mapRowToSite(SqlRowSet siteNextRow) {
 		Site theSite = new Site();
 
