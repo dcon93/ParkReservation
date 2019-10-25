@@ -14,16 +14,6 @@ public class JDBCSiteDAOIntegrationTests extends DAOIntegrationTest{
 		j.update()
 	}
 	
-	private Long getNextSiteId() {
-		SqlRowSet nextIdResult = j.queryForRowSet("SELECT nextval('seq_site_id')");
-		nextIdResult.next();
-		return nextIdResult.getLong(1);
-	}
-	
-	private Long getNextCampgroundId() {
-		SqlRowSet nextIdResult = j.queryForRowSet("SELECT nextval('seq_campground_id')");
-		nextIdResult.next();
-		return nextIdResult.getLong(1);
-	}
+
 	
 }

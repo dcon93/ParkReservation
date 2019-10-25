@@ -18,14 +18,17 @@ public abstract class DAOIntegrationTest {
 	 * session and hence the same database transaction */
 	private static SingleConnectionDataSource dataSource;
 	private static JdbcTemplate jdbc;
-	private Long dummySiteId;
-	private Long dummyCampgroundId;
-	private Long dummyParkId;
+	private static Long dummySiteId;
+	private static Long dummyCampgroundId;
+	private static Long dummyParkId;
 
 	/* Before any tests are run, this method initializes the datasource for testing. */
 	@BeforeClass	
 	private static void setup() {
 		setupDataSource();
+		setDummySiteId();
+		setDummyCampgroundId();
+		setDummyParkId();
 		createTestData();
 	}
 	
@@ -42,7 +45,10 @@ public abstract class DAOIntegrationTest {
 	}
 	private static void createTestData() {
 		JdbcTemplate jdbc = new JdbcTemplate(getDataSource());
-		//jdbc.update("INSERT INTO park )
+		
+		String sqlAddDummyPark = "INSERT INTO park (park_id, name, area, location, visitors, description, establish_date) " +
+								"VALUES (?, 'Pittsburgh National Park', 200, 'Pennsylvania', 1000, 2019-01-01)";
+		jdbc.update(sqlAddDummyPark, dummyParkId);
 		//jdbc.update("INSERT INTO campground )
 		//jdbc.update("INSERT INTO site)
 	}
@@ -67,17 +73,22 @@ public abstract class DAOIntegrationTest {
 		return dataSource;
 	}
 	
-	private Long getNextSiteId() {
+	private static void setDummySiteId() {
 		SqlRowSet nextIdResult = jdbc.queryForRowSet("SELECT nextval('seq_site_id')");
 		nextIdResult.next();
-		return nextIdResult.getLong(1);
+		dummySiteId = nextIdResult.getLong(1);
 	}
 	
-	private Long getNextCampgroundId() {
+	private static void setDummyCampgroundId() {
 		SqlRowSet nextIdResult = jdbc.queryForRowSet("SELECT nextval('seq_campground_id')");
 		nextIdResult.next();
-		return nextIdResult.getLong(1);
+		dummyCampgroundId = nextIdResult.getLong(1);
 	}
 
+	private static void setDummyParkId() {
+		SqlRowSet nextIdResult = jdbc.queryForRowSet("SELECT nextval('seq_park_id')");
+		nextIdResult.next();
+		dummyParkId = nextIdResult.getLong(1);
+	}
 	
 }
