@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.print.DocFlavor.INPUT_STREAM;
 import javax.sql.DataSource;
 
 import com.techelevator.dao.JDBCCampgroundDAO;
@@ -22,7 +21,7 @@ public class Menu {
 	JDBCReservationDAO reservationDAO;
 	Scanner userInput;
 	OutputStream out;
-	
+
 	public Menu(InputStream input, OutputStream output, DataSource datasource) {
 		userInput = new Scanner(input);
 		out = output;
@@ -31,51 +30,96 @@ public class Menu {
 		campgroundDAO = new JDBCCampgroundDAO(datasource);
 		reservationDAO = new JDBCReservationDAO(datasource);
 	}
-	
-	public Park selectAPark() { // displays parks to user and returns their choice of park; returns null if they choose 'Q'
+
+	public Park selectAPark() { // displays parks to user and returns their choice of park; returns null if they
+								// choose 'Q'
 		Park choice = null;
-		
+
 		Map<String, Park> parksMap = printAndMapParks(parkDAO.getAllParks());
-		
+
 		boolean badInput = true;
 		while (badInput) {
 			System.out.print("Select a park >>> ");
 			Park chosenPark = parksMap.get(userInput.nextLine());
-			if(chosenPark != null) {
-				if(chosenPark.getParkID() != null) {
+			if (chosenPark != null) {
+				if (chosenPark.getParkID() != null) {
 					choice = chosenPark;
 				}
 				badInput = false;
 			} else {
 				System.out.println("Not valid input. Please enter a number to choose a park or 'Q' to quit.");
 			}
-		
+
 		}
-		
+
 		return choice;
 	}
-	
-	private Map<String, Park> printAndMapParks(ArrayList<Park> parks){
+
+	private Map<String, Park> printAndMapParks(ArrayList<Park> parks) {
 		Map<String, Park> parkToNumber = new HashMap<String, Park>();
-		
+
 		System.out.println("Select a Park for Further Details");
 
 		for (int i = 0; i < parks.size(); i++) {
-			System.out.println("   " + (i+1) + ") " + parks.get(i));
-			parkToNumber.put(String.valueOf(i+1), parks.get(i));
+			System.out.println("   " + (i + 1) + ") " + parks.get(i));
+			parkToNumber.put(String.valueOf(i + 1), parks.get(i));
 		}
-		
-		parkToNumber.put("Q", new Park());		
+
+		parkToNumber.put("Q", new Park());
 		System.out.println("   Q) quit\n");
-		
+
 		return parkToNumber;
 	}
 
-	
+	public int parkInfo(Park chosenPark) {
+	} // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
 
-	public int parkInfo(Park chosenPark) {} // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
-	public boolean parkCampgrounds(Park chosenPark) {} // Displays  campgrounds for the given park; returns true if the user wants to make a reservation, false if they want to go to prev screen.
-	public void makeReservationByCampground(Park chosenPark) {} // Displays  campgrounds and lets user make reservation and stuff.
-	public void makeReservationByPark(Park chosenPark) {}// Displays  campgrounds and lets user make reservation and stuff.
+	public boolean parkCampgrounds(Park chosenPark) {
+	} // Displays campgrounds for the given park; returns true if the user wants to
+		// make a reservation, false if they want to go to prev screen.
+
+	public void makeReservationByCampground(Park chosenPark) { // Displays campgrounds and lets user make reservation
+																// and stuff.
+		ArrayList<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
+		Map<String, Campground> campMap = printAndMapCampgrounds(campgrounds);
+
+		boolean badInput = true;
+		while (badInput) {
+			System.out.print("Which campground (enter 0 to cancel)?");
+			Campground chosenCampground = campMap.get(userInput.nextLine());
+			if (chosenCampground == null) {
+				System.out.println("Not valid input.");
+			} else {
+				badInput = false;
+			}
+		}
+		
+		
+
+	}
+
+	private Map<String, Campground> printAndMapCampgrounds(ArrayList<Campground> campgrounds) {
+		Map<String, Campground> campgroundToNumber = new HashMap<String, Campground>();
+
+		System.out.println("Search For Campground Reservation");
+		System.out.printf("%-8s" + "%-15s" + "%-12s" + "%-12s" + "%-12s", "", "Name", "Open", "Close", "Daily Fee");
+
+		for (int i = 0; i < campgrounds.size(); i++) {
+			Campground c = campgrounds.get(i);
+
+			String dailyFee = String.format("%.2f", c.getDailyFee().doubleValue());
+			System.out.printf("%-8s" + "%-15s" + "%-12s" + "%-12s" + "$" + "%-12s", String.valueOf(i + 1), c.getName(),
+					c.openFromMonth(), c.openToMonth(), dailyFee);
+			campgroundToNumber.put(String.valueOf(i + 1), c);
+		}
+
+		campgroundToNumber.put("0", new Campground());
+
+		return campgroundToNumber;
+
+	}
+
+	public void makeReservationByPark(Park chosenPark) {
+	}// Displays campgrounds and lets user make reservation and stuff.
 
 }
