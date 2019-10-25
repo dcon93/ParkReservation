@@ -30,9 +30,51 @@ public class Menu {
 	}
 	
 	public Park selectAPark() {} // displays parks to user and returns their choice of park; returns null if they choose 'Q'
-	public int parkInfo(Park chosenPark) {} // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
+	
+	
+	
+	public void parkInfo(Park chosenPark) {
+		String choice = userInput.nextLine();
+		int numberChoice = Integer.parseInt(choice);
+		
+		while (true)
+		{
+			System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
+			System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
+			System.out.printf("%-16s %s%n","Established:", chosenPark.getDateEstablished());
+			System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
+			System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
+			System.out.println();
+			System.out.println(chosenPark.getDescriptionOfPark());
+
+			
+			if (numberChoice == 3) {
+				break;
+			} else if (numberChoice == 1){
+				
+				parkCampgrounds(chosenPark);
+			
+			}  else if (numberChoice == 2){
+				
+				makeReservationByPark(chosenPark);
+			}
+			}
+		}
+		
+		 // Displays park info and menu options 1-3. Returns user's menu choice (1-3);
+	
+	
+	
+	
 	public boolean parkCampgrounds(Park chosenPark) {} // Displays  campgrounds for the given park; returns true if the user wants to make a reservation, false if they want to go to prev screen.
+	
+	
+	
 	public void makeReservationByCampground(Park chosenPark) {} // Displays  campgrounds and lets user make reservation and stuff.
+	
+	
+	
+	
 	public void makeReservationByPark(Park chosenPark) {}// Displays  campgrounds and lets user make reservation and stuff.
 
 }
