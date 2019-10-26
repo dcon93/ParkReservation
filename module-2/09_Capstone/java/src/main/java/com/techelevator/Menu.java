@@ -40,7 +40,7 @@ public class Menu {
 
 		boolean badInput = true;
 		while (badInput) {
-			System.out.print("Select a park >>> ");
+			System.out.print(">>> ");
 			Park chosenPark = parksMap.get(userInput.nextLine());
 			if (chosenPark != null) {
 				if (chosenPark.getParkID() != null) {
@@ -74,7 +74,7 @@ public class Menu {
 	
 	public int parkInfo(Park chosenPark) {
 
-		System.out.printf("%-16s %s%n", "Park Name:", chosenPark.getName());
+		System.out.printf("%n%-16s %s National Park%n", "Park Name:", chosenPark.getName());
 		System.out.printf("%-16s %s%n", "Location:", chosenPark.getLocation());
 		System.out.printf("%-16s %s%n", "Established:", chosenPark.getDateEstablished());
 		System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
@@ -82,10 +82,11 @@ public class Menu {
 		System.out.println();
 		System.out.println(chosenPark.getDescriptionOfPark());
 
-		System.out.print("1) View Campgrounds");
-		System.out.print("2) Search for Reservation");
-		System.out.print("3) Return to previous screen");
-		System.out.print("Select a choice >>> ");
+		System.out.println("\nSelect a Command");
+		System.out.println("   1) View Campgrounds");
+		System.out.println("   2) Search for Reservation");
+		System.out.println("   3) Return to previous screen\n");
+		System.out.print(">>> ");
 
 		while (true) {
 			String choice = userInput.nextLine();
@@ -103,7 +104,7 @@ public class Menu {
 	public boolean parkCampgrounds(Park chosenPark) {
 
 		System.out.println(chosenPark.getName() + " National Park Campgrounds");
-		System.out.println("Id  Name                               Open       Close         DailyFee");
+		System.out.println("    Name                               Open       Close         DailyFee");
 		List<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
 		for (Campground camp : campgrounds) {
 			System.out.print("#" + camp.getCampgroundID() + "  ");
@@ -111,10 +112,14 @@ public class Menu {
 			System.out.print(String.format("%-11s", camp.getOpenFrom()));
 			System.out.print(String.format("%-14s", (camp.getOpenTo())));
 			System.out.println(String.format("%-25s", "$" + camp.getDailyFee()));
-
-			System.out.print("1( Search for Available Reservation");
-			System.out.print("2( Return to Previous Screen");
 		}
+		
+		System.out.println("\nSelect a Command");
+		System.out.println("   1) Search for Available Reservation");
+		System.out.println("   2) Return to Previous Screen\n");
+		System.out.println(">>>");
+
+		
 		while (true) {
 
 			String choice = userInput.nextLine();
@@ -130,8 +135,6 @@ public class Menu {
 
 		}
 	}
-
-
 	
 	public void makeReservationByCampground(Park chosenPark) { // Displays campgrounds and lets user make reservation
 																// and stuff.
