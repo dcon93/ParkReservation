@@ -103,7 +103,7 @@ public class Menu {
 
 	public boolean parkCampgrounds(Park chosenPark) {
 
-		System.out.println(chosenPark.getName() + " National Park Campgrounds");
+		System.out.println("\n" + chosenPark.getName() + " National Park Campgrounds");
 		System.out.println("    Name                               Open       Close         DailyFee");
 		List<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
 		for (Campground camp : campgrounds) {
@@ -117,7 +117,7 @@ public class Menu {
 		System.out.println("\nSelect a Command");
 		System.out.println("   1) Search for Available Reservation");
 		System.out.println("   2) Return to Previous Screen\n");
-		System.out.println(">>>");
+		System.out.print(">>> ");
 
 		
 		while (true) {
@@ -139,11 +139,13 @@ public class Menu {
 	public void makeReservationByCampground(Park chosenPark) { // Displays campgrounds and lets user make reservation
 																// and stuff.
 		ArrayList<Campground> campgrounds = campgroundDAO.getCampgroundsByParkId(chosenPark.getParkID());
+		
+		System.out.println("\nSearch For Campground Reservation");
 		Map<String, Campground> campMap = printAndMapCampgrounds(campgrounds);
 
 		boolean badInput = true;
 		while (badInput) {
-			System.out.print("Which campground (enter 0 to cancel)?");
+			System.out.println("\n\nWhich campground (enter 0 to cancel)?");
 			Campground chosenCampground = campMap.get(userInput.nextLine());
 			if (chosenCampground == null) {
 				System.out.println("Not valid input.");
@@ -157,14 +159,13 @@ public class Menu {
 	private Map<String, Campground> printAndMapCampgrounds(ArrayList<Campground> campgrounds) {
 		Map<String, Campground> campgroundToNumber = new HashMap<String, Campground>();
 
-		System.out.println("Search For Campground Reservation");
-		System.out.printf("%-8s" + "%-15s" + "%-12s" + "%-12s" + "%-12s", "", "Name", "Open", "Close", "Daily Fee");
+		System.out.printf("%4s" + "%-20s" + "%-12s" + "%-12s" + "%-12s", "", "Name", "Open", "Close", "Daily Fee");
 
 		for (int i = 0; i < campgrounds.size(); i++) {
 			Campground c = campgrounds.get(i);
 
 			String dailyFee = String.format("%.2f", c.getDailyFee().doubleValue());
-			System.out.printf("%-8s" + "%-15s" + "%-12s" + "%-12s" + "$" + "%-12s", String.valueOf(i + 1), c.getName(),
+			System.out.printf("%n#%-3s" + "%-20s" + "%-12s" + "%-12s" + "$" + "%-12s", String.valueOf(i + 1), c.getName(),
 					c.openFromMonth(), c.openToMonth(), dailyFee);
 			campgroundToNumber.put(String.valueOf(i + 1), c);
 		}
