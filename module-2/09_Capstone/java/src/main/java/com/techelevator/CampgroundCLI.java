@@ -44,11 +44,13 @@ public class CampgroundCLI {
 						break;
 					case 2: 
 						menu.makeReservationByPark(chosenPark);
+						parkInfo = false;
 						break;
 					case 1:
 						boolean makeReservation = menu.parkCampgrounds(chosenPark);
 						if (makeReservation) {
 							menu.makeReservationByCampground(chosenPark);
+							parkInfo = false;
 						}
 						break;
 					}

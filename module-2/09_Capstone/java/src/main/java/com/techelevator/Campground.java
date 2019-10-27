@@ -6,14 +6,69 @@ import java.time.LocalDate;
 
 public class Campground {
 	
-	long campgroundID;
-	String name;
-	String openTo;
-	String openFrom;
-	BigDecimal dailyFee;
+	private Long campgroundID;
+	private String name;
+	private String openTo;
+	private String openFrom;
+	private BigDecimal dailyFee;
 	
+	
+	public String openToMonth() {
+		return changeToMonth(openTo);
+	}
+	
+	public String openFromMonth() {
+		return changeToMonth(openFrom);
+	}
+	
+	private String changeToMonth(String monthNum) {
+		String month;
+		switch (monthNum) {
+		case "01":
+			month = "January";
+			break;
+		case "02":
+			month = "February";
+			break;
+		case "03":
+			month = "March";
+			break;
+		case "04": 
+			month = "April";
+			break;
+		case "05": 
+			month = "May";
+			break;
+		case "06": 
+			month = "June";
+			break;
+		case "07": 
+			month = "July";
+			break;
+		case "08":
+			month = "August";
+			break;
+		case "09":
+			month = "September";
+			break;
+		case "10":
+			month = "October";
+			break;
+		case "11":
+			month = "November";
+			break;
+		case "12":
+			month = "December";
+			break;
+		default:
+			month = monthNum;
+			break;
+		}
+		
+		return month;
+	}
 
-	public long getCampgroundID() {
+	public Long getCampgroundID() {
 		return campgroundID;
 	}
 	public String getName() {
@@ -30,7 +85,7 @@ public class Campground {
 	}
 	
 
-	public void setCampgroundID(long campgroundID) {
+	public void setCampgroundID(Long campgroundID) {
 		this.campgroundID = campgroundID;
 	}
 	public void setName(String name) {

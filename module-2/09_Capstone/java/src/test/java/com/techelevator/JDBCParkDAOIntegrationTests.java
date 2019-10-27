@@ -44,7 +44,7 @@ public class JDBCParkDAOIntegrationTests extends DAOIntegrationTest {
 		String testName = park.get(0).getName();
 		
 		for(int i = 1; i < park.size(); i++) {
-			String newName = park.get(i).name;
+			String newName = park.get(i).getName();
 			
 			boolean nameComparison = testName.compareTo(newName) < 1;
 			

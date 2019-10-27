@@ -50,7 +50,6 @@ public class JDBCParkDAO implements ParkDAO{
 			 Park thePark;
 			 thePark = new Park();
 			
-			
 			thePark.setPark_ID(parkNextRow.getLong("park_id"));
 			thePark.setName(parkNextRow.getString("name"));
 			thePark.setLocation(parkNextRow.getString("location"));

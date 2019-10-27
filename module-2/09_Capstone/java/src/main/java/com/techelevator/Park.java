@@ -5,13 +5,13 @@ import java.time.LocalDate;
 
 public class Park {
 	
-	Long parkID;
-	String name;
-	long area;
-	String location;
-	long visitors;
-	String descriptionOfPark;
-	Date dateEstablished;
+	private Long parkID;
+	private String name;
+	private long area;
+	private String location;
+	private long visitors;
+	private String descriptionOfPark;
+	private Date dateEstablished;
 	
 	
 	@Override

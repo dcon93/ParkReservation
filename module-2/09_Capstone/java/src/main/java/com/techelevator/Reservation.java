@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.sql.Date;
+import java.time.temporal.ChronoUnit;
 
 public class Reservation {
 	private Long reservationId;
@@ -17,6 +18,10 @@ public class Reservation {
 		this.name = name;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
+	}
+	
+	public double getReservationLengthInDays() {
+		return ChronoUnit.DAYS.between(fromDate.toLocalDate(), toDate.toLocalDate());
 	}
 	
 	public Long getReservationId() {
