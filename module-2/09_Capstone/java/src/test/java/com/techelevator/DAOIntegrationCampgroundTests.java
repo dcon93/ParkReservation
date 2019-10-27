@@ -40,7 +40,7 @@ public class DAOIntegrationCampgroundTests extends DAOIntegrationTest {
 		String testName = campground.get(0).getName();
 		
 		for(int i = 1; i < campground.size(); i++) {
-			String newName = campground.get(i).name;
+			String newName = campground.get(i).getName();
 			
 			boolean nameComparison = testName.compareTo(newName) < 1;
 			

@@ -6,11 +6,11 @@ import java.time.LocalDate;
 
 public class Campground {
 	
-	Long campgroundID;
-	String name;
-	String openTo;
-	String openFrom;
-	BigDecimal dailyFee;
+	private Long campgroundID;
+	private String name;
+	private String openTo;
+	private String openFrom;
+	private BigDecimal dailyFee;
 	
 	
 	public String openToMonth() {
