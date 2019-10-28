@@ -40,8 +40,10 @@ public class Menu {
 								// choose 'Q'
 		Park choice = null;
 
-		Map<String, Park> parksMap = printAndMapParks(parkDAO.getAllParks());
+		System.out.println("\nWelcome!\nSelect a Park for Further Details");
 
+		Map<String, Park> parksMap = printAndMapParks(parkDAO.getAllParks());
+		
 		boolean badInput = true;
 		while (badInput) {
 			System.out.print(">>> ");
@@ -198,8 +200,6 @@ public class Menu {
 
 	private Map<String, Park> printAndMapParks(ArrayList<Park> parks) {
 		Map<String, Park> parkToNumber = new HashMap<String, Park>();
-
-		System.out.println("Select a Park for Further Details");
 
 		for (int i = 0; i < parks.size(); i++) {
 			System.out.println("   " + (i + 1) + ") " + parks.get(i));
