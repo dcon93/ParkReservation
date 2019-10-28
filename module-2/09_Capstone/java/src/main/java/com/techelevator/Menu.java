@@ -68,7 +68,16 @@ public class Menu {
 		System.out.printf("%-16s %,d sq km%n", "Area:", chosenPark.getArea());
 		System.out.printf("%-16s %,d%n", "Annual Visitors:", chosenPark.getVisitors());
 		System.out.println();
-		System.out.println(chosenPark.getDescriptionOfPark());
+		
+		//print out description and wrap 
+		String[] description = chosenPark.getDescriptionOfPark().split(" ");
+		for(int i = 0; i < description.length; i++) {
+			System.out.print(description[i] + " ");
+			if(i % 10 == 0 && i != 0) {
+				System.out.print("\n");
+			}
+		}
+		System.out.println();
 
 		System.out.println("\nSelect a Command");
 		System.out.println("   1) View Campgrounds");
